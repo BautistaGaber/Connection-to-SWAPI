@@ -1,0 +1,21 @@
+package com.bautistagaber.connectiontoswapi.presentation.dto.response;
+
+import lombok.*;
+
+import java.util.List;
+
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PageResponse<T> {
+    private List<T> content;
+
+    private int page;
+
+    private int size;
+
+    private int totalElements;
+
+    private int totalPages;
+}
