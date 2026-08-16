@@ -26,4 +26,10 @@ public class People {
     private List<String> starships;
     private String url;
     private List<String> vehicles;
+
+    public People(Long id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
 }

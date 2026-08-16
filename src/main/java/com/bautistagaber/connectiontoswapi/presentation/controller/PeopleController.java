@@ -4,6 +4,7 @@ import com.bautistagaber.connectiontoswapi.application.service.PeopleService;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageResponse;
+import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleListResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.PeopleResponseMapper;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,13 @@ public class PeopleController {
         this.peopleResponseMapper = peopleResponseMapper;
     }
 
-    public ResponseEntity<PageResponse<PeopleResponse>> findPeople(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String name) {
-        PageResult<People> result = peopleService.findPeople(page, size, name);
+    @GetMapping()
+    public ResponseEntity<PageResponse<PeopleListResponse>> findPeople(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        PageResult<People> result = peopleService.findPeople(page, size);
 
-        List<PeopleResponse> people = result.content().stream().map(peopleResponseMapper::toResponse).toList();
+        List<PeopleListResponse> people = result.content().stream().map(person -> PeopleListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
 
-        PageResponse<PeopleResponse> response = PageResponse.<PeopleResponse>builder().content(people).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
+        PageResponse<PeopleListResponse> response = PageResponse.<PeopleListResponse>builder().content(people).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
 
         return ResponseEntity.ok(response);
     }
@@ -40,6 +42,16 @@ public class PeopleController {
         return peopleService.findPersonById(id)
                 .map(peopleResponseMapper::toResponse)
                 .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<PeopleResponse>> findPersonByName(@RequestParam String name) {
+        List<PeopleResponse> people = peopleService.findPersonByName(name)
+                .stream()
+                .map(peopleResponseMapper::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(people);
     }
 
 }

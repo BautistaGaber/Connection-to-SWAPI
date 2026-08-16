@@ -2,7 +2,9 @@ package com.bautistagaber.connectiontoswapi.presentation.mapper;
 
 import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PeopleResponseMapper {
 
     public PeopleResponse toResponse(People people){
