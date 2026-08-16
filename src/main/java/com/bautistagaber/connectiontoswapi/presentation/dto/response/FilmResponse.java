@@ -1,4 +1,4 @@
-package com.bautistagaber.connectiontoswapi.domain.model;
+package com.bautistagaber.connectiontoswapi.presentation.dto.response;
 
 import lombok.*;
 
@@ -7,9 +7,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Film {
+public class FilmResponse {
     private Long id;
     private String title;
     private Integer episodeId;
@@ -25,5 +26,4 @@ public class Film {
     private String url;
     private Instant created;
     private Instant edited;
-
 }
