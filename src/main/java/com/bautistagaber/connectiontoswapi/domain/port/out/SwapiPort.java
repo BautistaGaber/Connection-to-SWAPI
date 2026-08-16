@@ -12,4 +12,6 @@ public interface SwapiPort {
     Optional<People> findPersonById(Long id);
 
     List<People> findPersonByName(String name);
+    
+    PageResult<Film> findFilms(int page, int size);
 }
