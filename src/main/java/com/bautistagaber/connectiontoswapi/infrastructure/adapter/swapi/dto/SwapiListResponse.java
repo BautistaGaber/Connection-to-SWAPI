@@ -7,7 +7,7 @@ import java.util.List;
 public record SwapiListResponse<T> (String message,
                                     @JsonProperty("total_records") Integer totalRecords,
                                     @JsonProperty("total_pages") Integer totalPages,
-                                    Integer previous,
-                                    Integer next,
+                                    String previous,
+                                    String next,
                                     List<T> results){
 }
