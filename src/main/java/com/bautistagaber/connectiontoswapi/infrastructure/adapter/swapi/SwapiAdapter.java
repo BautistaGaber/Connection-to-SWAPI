@@ -3,8 +3,10 @@ package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi;
 import com.bautistagaber.connectiontoswapi.domain.model.*;
 import com.bautistagaber.connectiontoswapi.domain.port.out.SwapiPort;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.client.SwapiClient;
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResponse;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResultResponse;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResultsResponse;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.list.SwapiPeopleListItem;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiFilmProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.mapper.SwapiMapper;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +29,7 @@ public class SwapiAdapter implements SwapiPort {
 
         int swapiPage = page + 1;
 
-        SwapiListResponse<SwapiPeopleListItem> response =
+        SwapiListResultsResponse<SwapiPeopleListItem> response =
                 swapiClient.getPeople(swapiPage, size);
 
         List<People> people = response.results()
@@ -56,6 +58,41 @@ public class SwapiAdapter implements SwapiPort {
                 .stream()
                 .map(swapiMapper::toPeople)
                 .toList();
+    }
+
+    @Override
+    public PageResult<Film> findFilms(int page, int size) {
+        int swapiPage = page + 1;
+
+        SwapiListResultResponse<SwapiFilmProperties> response =
+                swapiClient.getFilms(swapiPage, size);
+
+        List<Film> films = response.result()
+                .stream()
+                .map(swapiMapper::toFilmsList)
+                .toList();
+
+        //logica que trae todos los datos de la api para realizar la paginacion
+        int totalElements = films.size();
+
+        int fromIndex = page * size;
+        int toIndex = Math.min(fromIndex + size, totalElements);
+
+        List<Film> paginatedFilms = fromIndex < totalElements
+                ? films.subList(fromIndex, toIndex)
+                : List.of();
+
+        int totalPages = (int) Math.ceil(
+                (double) totalElements / size
+        );
+
+        return new PageResult<>(
+                paginatedFilms,
+                page,
+                size,
+                totalElements,
+                totalPages
+        );
     }
 
 }

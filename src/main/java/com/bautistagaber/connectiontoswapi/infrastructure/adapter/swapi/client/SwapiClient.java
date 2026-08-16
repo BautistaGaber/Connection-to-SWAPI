@@ -1,10 +1,8 @@
 package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.client;
 
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResponse;
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiResponse;
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiResult;
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiSearchResponse;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.*;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.list.SwapiPeopleListItem;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiFilmProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiPeopleProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
@@ -21,7 +19,7 @@ public class SwapiClient {
         this.webClient = webClient;
     }
 
-    public SwapiListResponse<SwapiPeopleListItem> getPeople(int page, int limit) {
+    public SwapiListResultsResponse<SwapiPeopleListItem> getPeople(int page, int limit) {
 
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -33,7 +31,7 @@ public class SwapiClient {
                 .retrieve()
                 .bodyToMono(
                         new ParameterizedTypeReference<
-                                SwapiListResponse<SwapiPeopleListItem>
+                                SwapiListResultsResponse<SwapiPeopleListItem>
                                 >() {}
                 )
                 .block();
@@ -68,4 +66,22 @@ public class SwapiClient {
                 .block();
     }
 
+    public SwapiListResultResponse<SwapiFilmProperties> getFilms(int page, int limit) {
+
+        return webClient.get()
+                        .uri(uriBuilder -> uriBuilder
+                                .path("/films/")
+                                .queryParam("page", page)
+                                .queryParam("limit", limit)
+                                .build()
+                        )
+                        .retrieve()
+                        .bodyToMono(
+                                new ParameterizedTypeReference<
+                                        SwapiListResultResponse<SwapiFilmProperties>
+                                        >() {
+                                }
+                        )
+                        .block();
+    }
 }
