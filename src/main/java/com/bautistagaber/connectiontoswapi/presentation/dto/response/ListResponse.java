@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PeopleListResponse {
+public class ListResponse {
     private Long id;
 
     private String name;
