@@ -25,11 +25,11 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Optional<Film> findFilmById(Long id) {
-        return Optional.empty();
+        return swapiPort.findFilmById(id);
     }
 
     @Override
     public List<Film> findFilmByName(String name) {
-        return List.of();
+        return swapiPort.findFilmByName(name);
     }
 }
