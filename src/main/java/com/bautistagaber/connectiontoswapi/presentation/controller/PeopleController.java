@@ -4,7 +4,7 @@ import com.bautistagaber.connectiontoswapi.application.service.PeopleService;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageResponse;
-import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleListResponse;
+import com.bautistagaber.connectiontoswapi.presentation.dto.response.ListResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.PeopleResponseMapper;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +25,12 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<PeopleListResponse>> findPeople(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<PageResponse<ListResponse>> findPeople(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         PageResult<People> result = peopleService.findPeople(page, size);
 
-        List<PeopleListResponse> people = result.content().stream().map(person -> PeopleListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
+        List<ListResponse> people = result.content().stream().map(person -> ListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
 
-        PageResponse<PeopleListResponse> response = PageResponse.<PeopleListResponse>builder().content(people).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
+        PageResponse<ListResponse> response = PageResponse.<ListResponse>builder().content(people).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
 
         return ResponseEntity.ok(response);
     }
