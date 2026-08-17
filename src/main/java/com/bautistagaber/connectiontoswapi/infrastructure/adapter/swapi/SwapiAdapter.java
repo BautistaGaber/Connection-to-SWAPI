@@ -9,6 +9,7 @@ import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.list
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiFilmProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiPeopleProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiStarshipProperties;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiVehicleProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.mapper.SwapiMapper;
 import org.springframework.stereotype.Component;
 
@@ -139,6 +140,7 @@ public class SwapiAdapter implements SwapiPort {
         );
     }
 
+    @Override
     public Optional<Starship> findStarshipById(Long id){
         return Optional.ofNullable(swapiClient.getStarshipsById(id))
                 .map(response -> swapiMapper.toStarship(response.result()));
@@ -154,4 +156,45 @@ public class SwapiAdapter implements SwapiPort {
                 .map(swapiMapper::toStarship)
                 .toList();
     }
+
+    @Override
+    public PageResult<Vehicle> findVehicles(int page, int size) {
+
+        int swapiPage = page + 1;
+
+        SwapiListResultsResponse<SwapiListItem> response =
+                swapiClient.getVehicles(swapiPage, size);
+
+        List<Vehicle> vehicle = response.results()
+                .stream()
+                .map(swapiMapper::toVehiclesList)
+                .toList();
+
+        return new PageResult<>(
+                vehicle,
+                page,
+                size,
+                response.totalRecords(),
+                response.totalPages()
+        );
+    }
+
+    @Override
+    public Optional<Vehicle> findVehicleById(Long id){
+        return Optional.ofNullable(swapiClient.getVehicleById(id))
+                .map(response -> swapiMapper.toVehicle(response.result()));
+    }
+
+    @Override
+    public List<Vehicle> findVehicleByName(String name) {
+        SwapiListResultResponse<SwapiVehicleProperties> response =
+                swapiClient.getVehicleByName(name);
+
+        return response.result()
+                .stream()
+                .map(swapiMapper::toVehicle)
+                .toList();
+    }
+
+
 }

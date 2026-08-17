@@ -3,11 +3,13 @@ package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.mapper;
 import com.bautistagaber.connectiontoswapi.domain.model.Film;
 import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.domain.model.Starship;
+import com.bautistagaber.connectiontoswapi.domain.model.Vehicle;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiResult;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.list.SwapiListItem;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiFilmProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiPeopleProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiStarshipProperties;
+import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiVehicleProperties;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -49,7 +51,6 @@ public class SwapiMapper {
         );
     }
 
-
     public Film toFilm(SwapiResult<SwapiFilmProperties> result){
 
         SwapiFilmProperties properties = result.properties();
@@ -72,7 +73,6 @@ public class SwapiMapper {
                 Instant.parse(properties.edited())
         );
     }
-
 
     public Starship toStarshipList(SwapiListItem result){
 
@@ -102,6 +102,40 @@ public class SwapiMapper {
                 properties.hyperdrive_rating(),
                 properties.MGLT(),
                 properties.starship_class(),
+                properties.pilots(),
+                properties.films(),
+                properties.url(),
+                Instant.parse(properties.created()),
+                Instant.parse(properties.edited())
+        );
+    }
+
+    public Vehicle toVehiclesList(SwapiListItem result){
+
+        return new Vehicle(
+                Long.valueOf(result.uid()),
+                result.name(),
+                result.url()
+        );
+    }
+
+    public Vehicle toVehicle(SwapiResult<SwapiVehicleProperties> result) {
+
+        SwapiVehicleProperties properties = result.properties();
+
+        return new Vehicle(
+                Long.valueOf(result.uid()),
+                properties.name(),
+                properties.model(),
+                properties.manufacturer(),
+                properties.costInCredits(),
+                properties.length(),
+                properties.maxAtmospheringSpeed(),
+                properties.crew(),
+                properties.passengers(),
+                properties.cargoCapacity(),
+                properties.consumables(),
+                properties.vehicleClass(),
                 properties.pilots(),
                 properties.films(),
                 properties.url(),

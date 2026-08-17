@@ -1,5 +1,4 @@
-package com.bautistagaber.connectiontoswapi.domain.model;
-
+package com.bautistagaber.connectiontoswapi.presentation.dto.response;
 
 import lombok.*;
 
@@ -7,9 +6,9 @@ import java.time.Instant;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class Vehicle {
+public class VehicleResponse {
     private Long id;
     private String name;
     private String model;
@@ -27,11 +26,4 @@ public class Vehicle {
     private String url;
     private Instant created;
     private Instant edited;
-
-
-    public Vehicle(Long id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 }

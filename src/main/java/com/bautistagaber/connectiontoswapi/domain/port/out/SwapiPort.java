@@ -24,4 +24,10 @@ public interface SwapiPort {
     Optional<Starship> findStarshipById(Long id);
 
     List<Starship> findStarshipByName(String name);
+
+    PageResult<Vehicle> findVehicles(int page, int size);
+
+    Optional<Vehicle> findVehicleById(Long id);
+
+    List<Vehicle> findVehicleByName(String name);
 }

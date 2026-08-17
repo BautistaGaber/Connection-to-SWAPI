@@ -1,7 +1,5 @@
 package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties;
 
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiResult;
-
 import java.util.List;
 
 public record SwapiFilmProperties(String created,
