@@ -14,4 +14,14 @@ public interface SwapiPort {
     List<People> findPersonByName(String name);
     
     PageResult<Film> findFilms(int page, int size);
+
+    Optional<Film> findFilmById(Long id);
+
+    List<Film> findFilmByName(String name);
+
+    PageResult<Starship> findStarships(int page, int size);
+
+    Optional<Starship> findStarshipById(Long id);
+
+    List<Starship> findStarshipByName(String name);
 }
