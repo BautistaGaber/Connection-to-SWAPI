@@ -1,37 +1,35 @@
-package com.bautistagaber.connectiontoswapi.domain.model;
+package com.bautistagaber.connectiontoswapi.presentation.dto.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Starship {
+public class StarshipResponse {
     private Long id;
     private String name;
     private String model;
-    private String starshipClass;
     private String manufacturer;
     private String costInCredits;
     private String length;
+    private String maxAtmospheringSpeed;
     private String crew;
     private String passengers;
-    private String maxAtmospheringSpeed;
-    private String hyperdriveRating;
-    private String mglt;
     private String cargoCapacity;
     private String consumables;
-    private List<String> films;
+    private String hyperdriveRating;
+    private String MGLT;
+    private String starshipClass;
     private List<String> pilots;
+    private List<String> films;
     private String url;
     private Instant created;
     private Instant edited;
-
-    public Starship(Long id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 }
