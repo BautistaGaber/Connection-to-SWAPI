@@ -5,16 +5,22 @@ import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.model.Starship;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.ListResponse;
-import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.StarshipResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.StarshipResponseMapper;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/starships")
+@Validated
 public class StarshipController {
 
     private final StarshipService starshipService;
@@ -26,7 +32,10 @@ public class StarshipController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<ListResponse>> findStarship(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<PageResponse<ListResponse>> findStarship(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+
         PageResult<Starship> result = starshipService.findStarship(page, size);
 
         List<ListResponse> starships = result.content().stream().map(starship -> ListResponse.builder().id(starship.getId()).name(starship.getName()).url(starship.getUrl()).build()).toList();
@@ -37,16 +46,16 @@ public class StarshipController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StarshipResponse> findPersonById(@PathVariable Long id) {
+    public ResponseEntity<StarshipResponse> findPersonById(@PathVariable @Positive Long id) {
 
-        //con id = 1 falla -> no hay starship -> hacer excepcion porque hay 30 starships pero no son ids corridos
         return starshipService.findStarshipById(id)
                 .map(starshipResponseMapper::toResponse)
-                .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Starship", id));
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<StarshipResponse>> findPersonByName(@RequestParam String name) {
+    public ResponseEntity<List<StarshipResponse>> findPersonByName(@RequestParam @NotBlank String name) {
         List<StarshipResponse> starShips = starshipService.findStarshipByName(name)
                 .stream()
                 .map(starshipResponseMapper::toResponse)

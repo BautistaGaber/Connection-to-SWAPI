@@ -7,13 +7,20 @@ import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageRespons
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.ListResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.PeopleResponseMapper;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/people")
+@Validated
 public class PeopleController {
 
     private final PeopleService peopleService;
@@ -25,7 +32,10 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<ListResponse>> findPeople(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<PageResponse<ListResponse>> findPeople(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+
         PageResult<People> result = peopleService.findPeople(page, size);
 
         List<ListResponse> people = result.content().stream().map(person -> ListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
@@ -37,15 +47,16 @@ public class PeopleController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<PeopleResponse> findPersonById(@PathVariable Long id) {
+    public ResponseEntity<PeopleResponse> findPersonById(@PathVariable @Positive Long id) {
 
         return peopleService.findPersonById(id)
                 .map(peopleResponseMapper::toResponse)
-                .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Person", id));
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<PeopleResponse>> findPersonByName(@RequestParam String name) {
+    public ResponseEntity<List<PeopleResponse>> findPersonByName(@RequestParam @NotBlank String name) {
         List<PeopleResponse> people = peopleService.findPersonByName(name)
                 .stream()
                 .map(peopleResponseMapper::toResponse)

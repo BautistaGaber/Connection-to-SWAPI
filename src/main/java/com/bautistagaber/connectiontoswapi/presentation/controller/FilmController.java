@@ -5,15 +5,21 @@ import com.bautistagaber.connectiontoswapi.domain.model.Film;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.FilmResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageResponse;
-import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.FilmResponseMapper;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/film")
+@RequestMapping("/api/films")
+@Validated
 public class FilmController {
 
     private final FilmService filmService;
@@ -25,8 +31,10 @@ public class FilmController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<FilmResponse>> findFilms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size)
-    {
+    public ResponseEntity<PageResponse<FilmResponse>> findFilms(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+
         PageResult<Film> result = filmService.findFilms(page, size);
 
         PageResponse<FilmResponse> response = new PageResponse<>(
@@ -41,15 +49,16 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FilmResponse> findFilmById(@PathVariable Long id) {
+    public ResponseEntity<FilmResponse> findFilmById(@PathVariable @Positive Long id) {
 
         return filmService.findFilmById(id)
                 .map(filmResponseMapper::toResponse)
-                .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Film", id));
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<FilmResponse>> findFilmByName(@RequestParam String name) {
+    public ResponseEntity<List<FilmResponse>> findFilmByName(@RequestParam @NotBlank String name) {
         List<FilmResponse> film = filmService.findFilmByName(name)
                 .stream()
                 .map(filmResponseMapper::toResponse)
