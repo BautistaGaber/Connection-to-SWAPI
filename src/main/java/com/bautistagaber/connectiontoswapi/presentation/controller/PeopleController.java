@@ -11,7 +11,6 @@ import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFou
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,9 +35,10 @@ public class PeopleController {
     @GetMapping()
     public ResponseEntity<PageResponse<ListResponse>> findPeople(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String name) {
 
-        PageResult<People> result = peopleService.findPeople(page, size);
+
+        PageResult<People> result = peopleService.findPeople(page, size, name);
 
         List<ListResponse> people = result.content().stream().map(person -> ListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
 
@@ -56,15 +56,4 @@ public class PeopleController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResourceNotFoundException("Person", id));
     }
-
-    @GetMapping("/name")
-    public ResponseEntity<List<PeopleResponse>> findPersonByName(@RequestParam @NotBlank String name) {
-        List<PeopleResponse> people = peopleService.findPersonByName(name)
-                .stream()
-                .map(peopleResponseMapper::toResponse)
-                .toList();
-
-        return ResponseEntity.ok(people);
-    }
-
 }

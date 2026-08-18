@@ -11,23 +11,23 @@ public interface SwapiPort {
 
     Optional<People> findPersonById(Long id);
 
-    List<People> findPersonByName(String name);
+    PageResult<People> findPersonByName(String name, int page, int size);
     
     PageResult<Film> findFilms(int page, int size);
 
     Optional<Film> findFilmById(Long id);
 
-    List<Film> findFilmByName(String name);
+    PageResult<Film> findFilmByName(String name, int page, int size);
 
     PageResult<Starship> findStarships(int page, int size);
 
     Optional<Starship> findStarshipById(Long id);
 
-    List<Starship> findStarshipByName(String name);
+    PageResult<Starship> findStarshipByName(String name, int page, int size);
 
     PageResult<Vehicle> findVehicles(int page, int size);
 
     Optional<Vehicle> findVehicleById(Long id);
 
-    List<Vehicle> findVehicleByName(String name);
+    PageResult<Vehicle> findVehicleByName(String name, int page, int size);
 }

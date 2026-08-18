@@ -35,9 +35,9 @@ public class FilmController {
     @GetMapping()
     public ResponseEntity<PageResponse<FilmResponse>> findFilms(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String title) {
 
-        PageResult<Film> result = filmService.findFilms(page, size);
+        PageResult<Film> result = filmService.findFilms(page, size, title);
 
         PageResponse<FilmResponse> response = new PageResponse<>(
                 result.content().stream().map(filmResponseMapper::toResponse).toList(),
@@ -57,15 +57,5 @@ public class FilmController {
                 .map(filmResponseMapper::toResponse)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResourceNotFoundException("Film", id));
-    }
-
-    @GetMapping("/name")
-    public ResponseEntity<List<FilmResponse>> findFilmByName(@RequestParam @NotBlank String name) {
-        List<FilmResponse> film = filmService.findFilmByName(name)
-                .stream()
-                .map(filmResponseMapper::toResponse)
-                .toList();
-
-        return ResponseEntity.ok(film);
     }
 }

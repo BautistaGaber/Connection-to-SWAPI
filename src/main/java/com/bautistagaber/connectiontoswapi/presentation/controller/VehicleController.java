@@ -35,9 +35,9 @@ public class VehicleController {
     @GetMapping()
     public ResponseEntity<PageResponse<ListResponse>> findVehicles(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String name) {
 
-        PageResult<Vehicle> result = vehicleService.findVehicles(page, size);
+        PageResult<Vehicle> result = vehicleService.findVehicles(page, size, name);
 
         List<ListResponse> vehicles = result.content().stream().map(vehicle -> ListResponse.builder().id(vehicle.getId()).name(vehicle.getName()).url(vehicle.getUrl()).build()).toList();
 
@@ -54,15 +54,4 @@ public class VehicleController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle", id));
     }
-
-    @GetMapping("/name")
-    public ResponseEntity<List<VehicleResponse>> findPersonByName(@RequestParam @NotBlank String name) {
-        List<VehicleResponse> vehicle = vehicleService.findVehicleByName(name)
-                .stream()
-                .map(vehicleResponseMapper::toResponse)
-                .toList();
-
-        return ResponseEntity.ok(vehicle);
-    }
-
 }

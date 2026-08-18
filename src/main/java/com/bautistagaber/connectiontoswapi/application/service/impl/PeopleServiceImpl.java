@@ -19,17 +19,16 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public PageResult<People> findPeople(int page, int size) {
-        return swapiPort.findPeople(page, size);
+    public PageResult<People> findPeople(int page, int size, String name) {
+        if (name == null || name.isBlank()) {
+            return swapiPort.findPeople(page, size);
+        }
+
+        return swapiPort.findPersonByName(name, page, size);
     }
 
     @Override
     public Optional<People> findPersonById(Long id) {
         return swapiPort.findPersonById(id);
-    }
-
-    @Override
-    public List<People> findPersonByName(String name) {
-        return swapiPort.findPersonByName(name);
     }
 }

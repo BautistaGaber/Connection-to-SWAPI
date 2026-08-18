@@ -17,15 +17,16 @@ public class VehicleServiceImpl implements VehicleService {
         this.swapiPort= swapiPort;
     }
 
-    public PageResult<Vehicle> findVehicles(int page, int size){
-        return swapiPort.findVehicles(page, size);
+    public PageResult<Vehicle> findVehicles(int page, int size, String name){
+
+        if (name == null || name.isBlank()) {
+            return swapiPort.findVehicles(page, size);
+        }
+
+        return swapiPort.findVehicleByName(name, page, size);
     }
 
     public Optional<Vehicle> findVehicleById(Long id){
         return swapiPort.findVehicleById(id);
-    }
-
-    public List<Vehicle> findVehicleByName(String name){
-        return swapiPort.findVehicleByName(name);
     }
 }

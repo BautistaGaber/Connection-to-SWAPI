@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FilmService {
-    PageResult<Film> findFilms(int page, int size);
+    PageResult<Film> findFilms(int page, int size,String title);
 
     Optional<Film> findFilmById(Long id);
-
-    List<Film> findFilmByName(String name);
 }

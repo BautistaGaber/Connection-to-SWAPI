@@ -36,9 +36,9 @@ public class StarshipController {
     @GetMapping()
     public ResponseEntity<PageResponse<ListResponse>> findStarship(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
+            @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String name) {
 
-        PageResult<Starship> result = starshipService.findStarship(page, size);
+        PageResult<Starship> result = starshipService.findStarship(page, size, name);
 
         List<ListResponse> starships = result.content().stream().map(starship -> ListResponse.builder().id(starship.getId()).name(starship.getName()).url(starship.getUrl()).build()).toList();
 
@@ -55,15 +55,4 @@ public class StarshipController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResourceNotFoundException("Starship", id));
     }
-
-    @GetMapping("/name")
-    public ResponseEntity<List<StarshipResponse>> findPersonByName(@RequestParam @NotBlank String name) {
-        List<StarshipResponse> starShips = starshipService.findStarshipByName(name)
-                .stream()
-                .map(starshipResponseMapper::toResponse)
-                .toList();
-
-        return ResponseEntity.ok(starShips);
-    }
-
 }

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VehicleService {
-    PageResult<Vehicle> findVehicles(int page, int size);
+    PageResult<Vehicle> findVehicles(int page, int size, String name);
 
     Optional<Vehicle> findVehicleById(Long id);
-
-    List<Vehicle> findVehicleByName(String name);
 }

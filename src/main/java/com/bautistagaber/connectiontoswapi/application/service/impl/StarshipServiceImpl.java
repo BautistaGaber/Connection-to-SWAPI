@@ -18,17 +18,18 @@ public class StarshipServiceImpl implements StarshipService {
     }
 
     @Override
-    public PageResult<Starship> findStarship(int page, int size) {
-        return swapiPort.findStarships(page, size);
+    public PageResult<Starship> findStarship(int page, int size, String name) {
+
+        if (name == null || name.isBlank()) {
+            return swapiPort.findStarships(page, size);
+        }
+
+        return swapiPort.findStarshipByName(name, page, size);
+
     }
 
     @Override
     public Optional<Starship> findStarshipById(Long id) {
         return swapiPort.findStarshipById(id);
-    }
-
-    @Override
-    public List<Starship> findStarshipByName(String name) {
-        return swapiPort.findStarshipByName(name);
     }
 }

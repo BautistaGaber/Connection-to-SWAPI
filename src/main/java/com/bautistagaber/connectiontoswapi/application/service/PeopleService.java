@@ -8,10 +8,8 @@ import java.util.Optional;
 
 public interface PeopleService {
 
-    PageResult<People> findPeople(int page, int size);
+    PageResult<People> findPeople(int page, int size, String name);
 
     Optional<People> findPersonById(Long id);
-
-    List<People> findPersonByName(String name);
 
 }

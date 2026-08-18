@@ -19,17 +19,17 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public PageResult<Film> findFilms(int page, int size) {
-        return swapiPort.findFilms(page, size);
+    public PageResult<Film> findFilms(int page, int size, String title) {
+
+        if (title == null || title.isBlank()) {
+            return swapiPort.findFilms(page, size);
+        }
+
+        return swapiPort.findFilmByName(title, page, size);
     }
 
     @Override
     public Optional<Film> findFilmById(Long id) {
         return swapiPort.findFilmById(id);
-    }
-
-    @Override
-    public List<Film> findFilmByName(String name) {
-        return swapiPort.findFilmByName(name);
     }
 }
