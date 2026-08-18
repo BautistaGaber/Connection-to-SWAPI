@@ -2,6 +2,8 @@ package com.bautistagaber.connectiontoswapi.application.service.impl;
 
 import com.bautistagaber.connectiontoswapi.application.command.LoginCommand;
 import com.bautistagaber.connectiontoswapi.application.command.RegisterCommand;
+import com.bautistagaber.connectiontoswapi.application.exception.InvalidCredentialsException;
+import com.bautistagaber.connectiontoswapi.application.exception.UserAlreadyExistsException;
 import com.bautistagaber.connectiontoswapi.application.port.out.JwtPort;
 import com.bautistagaber.connectiontoswapi.application.port.out.PasswordEncoderPort;
 import com.bautistagaber.connectiontoswapi.application.port.out.UserPersistencePort;
@@ -27,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
                 userPersistencePort.findByUsername(command.username());
 
         if (existingUser.isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new UserAlreadyExistsException("Username already exists");
         }
 
         String encodedPassword =
@@ -45,12 +47,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String login(LoginCommand command) {
         User user = userPersistencePort.findByUsername(command.username())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
 
         boolean passwordMatches = passwordEncoderPort.matches(command.password(), user.getPassword());
 
         if(!passwordMatches){
-            throw new IllegalArgumentException("Invalid credentials");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
         return jwtPort.generateToken(user);
