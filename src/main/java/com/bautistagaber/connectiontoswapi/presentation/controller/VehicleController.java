@@ -8,6 +8,7 @@ import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageRespons
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.VehicleResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.VehicleResponseMapper;
 import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/vehicles")
 @Validated
+@SecurityRequirement(name = "bearerAuth")
 public class VehicleController {
     private final VehicleService vehicleService;
     private final VehicleResponseMapper vehicleResponseMapper;

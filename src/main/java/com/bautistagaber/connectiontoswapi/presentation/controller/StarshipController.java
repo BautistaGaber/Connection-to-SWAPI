@@ -8,6 +8,7 @@ import com.bautistagaber.connectiontoswapi.presentation.dto.response.ListRespons
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.StarshipResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.StarshipResponseMapper;
 import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/starships")
 @Validated
+@SecurityRequirement(name = "bearerAuth")
 public class StarshipController {
 
     private final StarshipService starshipService;

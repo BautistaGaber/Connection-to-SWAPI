@@ -7,6 +7,7 @@ import com.bautistagaber.connectiontoswapi.presentation.dto.response.FilmRespons
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PageResponse;
 import com.bautistagaber.connectiontoswapi.presentation.mapper.FilmResponseMapper;
 import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/films")
 @Validated
+@SecurityRequirement(name = "bearerAuth")
 public class FilmController {
 
     private final FilmService filmService;
