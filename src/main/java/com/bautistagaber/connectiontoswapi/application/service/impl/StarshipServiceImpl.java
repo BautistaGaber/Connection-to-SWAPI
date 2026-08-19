@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Implementation of the starship service.
+ * Delegates queries to SwapiPort and validates that name searches return results.
+ */
 @Service
 public class StarshipServiceImpl implements StarshipService {
     private final SwapiPort swapiPort;

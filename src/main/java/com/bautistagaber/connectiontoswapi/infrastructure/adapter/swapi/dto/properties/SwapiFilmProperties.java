@@ -2,6 +2,9 @@ package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.pro
 
 import java.util.List;
 
+/**
+ * DTO mapping SWAPI film JSON properties from the external API (snake_case).
+ */
 public record SwapiFilmProperties(String created,
                                   String edited,
                                   List<String> starships,

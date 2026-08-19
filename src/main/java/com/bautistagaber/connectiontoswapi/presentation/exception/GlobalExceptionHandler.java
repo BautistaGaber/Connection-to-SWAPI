@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
+/**
+ * Centralized exception handler (@RestControllerAdvice). Maps application and
+ * infrastructure exceptions to proper HTTP JSON responses with correct status codes.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.Instant;
 
+/**
+ * Handles Spring Security errors by writing custom JSON responses:
+ * 401 (Unauthorized) for authentication failures and 403 (Forbidden) for access denied.
+ */
 @Component
 public class SecurityErrorHandler {
     private final ObjectMapper objectMapper;

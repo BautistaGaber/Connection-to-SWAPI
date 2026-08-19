@@ -5,6 +5,9 @@ import lombok.*;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Domain model representing a Star Wars starship.
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

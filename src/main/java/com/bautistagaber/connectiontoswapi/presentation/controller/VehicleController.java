@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for vehicles. Exposes GET /api/vehicles (paginated list with optional name filter)
+ * and GET /api/vehicles/{id}. Requires JWT authentication.
+ */
 @RestController
 @RequestMapping("/api/vehicles")
 @Validated

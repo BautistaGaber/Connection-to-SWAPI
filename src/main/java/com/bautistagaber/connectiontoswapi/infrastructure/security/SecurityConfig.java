@@ -21,6 +21,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.io.IOException;
 import java.time.Instant;
 
+/**
+ * Main Spring Security configuration: stateless sessions, public routes
+ * (/auth/**, swagger), JWT filter registration, and custom 401/403 error handlers.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

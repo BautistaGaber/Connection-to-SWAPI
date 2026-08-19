@@ -4,6 +4,9 @@ import com.bautistagaber.connectiontoswapi.domain.model.Starship;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.StarshipResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper that converts the domain Starship model into the StarshipResponse DTO.
+ */
 @Component
 public class StarshipResponseMapper {
 

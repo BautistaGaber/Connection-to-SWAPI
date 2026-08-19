@@ -5,6 +5,9 @@ import lombok.*;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Full people/character response DTO with all fields for the REST API.
+ */
 @Getter
 @Builder
 @NoArgsConstructor

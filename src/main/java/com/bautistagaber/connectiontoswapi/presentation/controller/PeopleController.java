@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for people/characters. Exposes GET /api/people (paginated list with optional name filter)
+ * and GET /api/people/{id}. Requires JWT authentication.
+ */
 @RestController
 @RequestMapping("/api/people")
 @Validated

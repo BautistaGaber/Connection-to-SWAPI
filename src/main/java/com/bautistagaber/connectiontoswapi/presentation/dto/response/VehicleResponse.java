@@ -5,6 +5,9 @@ import lombok.*;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Full vehicle response DTO with all fields for the REST API.
+ */
 @Getter
 @Builder
 @AllArgsConstructor

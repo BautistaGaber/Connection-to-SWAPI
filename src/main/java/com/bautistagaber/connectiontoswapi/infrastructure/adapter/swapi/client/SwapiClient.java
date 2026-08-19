@@ -14,6 +14,10 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 
 import java.util.function.Supplier;
 
+/**
+ * Low-level HTTP client that consumes the external SWAPI API using WebClient.
+ * Handles connection errors and non-successful responses by wrapping them in SwapiApiException.
+ */
 @Component
 public class SwapiClient {
 

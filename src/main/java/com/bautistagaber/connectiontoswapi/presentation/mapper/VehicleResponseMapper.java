@@ -4,6 +4,9 @@ import com.bautistagaber.connectiontoswapi.domain.model.Vehicle;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.VehicleResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper that converts the domain Vehicle model into the VehicleResponse DTO.
+ */
 @Component
 public class VehicleResponseMapper {
 

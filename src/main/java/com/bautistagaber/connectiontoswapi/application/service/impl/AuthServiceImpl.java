@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Implementation of the authentication service.
+ * Orchestrates user persistence, password encoding, and JWT generation.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {

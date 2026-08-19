@@ -4,6 +4,9 @@ import com.bautistagaber.connectiontoswapi.domain.model.Film;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.FilmResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper that converts the domain Film model into the FilmResponse DTO.
+ */
 @Component
 public class FilmResponseMapper {
     public FilmResponse toResponse(Film film){

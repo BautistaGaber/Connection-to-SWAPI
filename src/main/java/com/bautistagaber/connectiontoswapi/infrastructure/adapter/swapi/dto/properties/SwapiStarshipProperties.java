@@ -2,6 +2,9 @@ package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.pro
 
 import java.util.List;
 
+/**
+ * DTO mapping SWAPI starship JSON properties from the external API.
+ */
 public record SwapiStarshipProperties(String created,
                                       String edited,
                                       String consumables,

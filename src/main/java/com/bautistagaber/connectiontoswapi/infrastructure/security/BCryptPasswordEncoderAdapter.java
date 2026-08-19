@@ -6,6 +6,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Adapter implementing PasswordEncoderPort using Spring Security's BCrypt.
+ */
 @Component
 @RequiredArgsConstructor
 public class BCryptPasswordEncoderAdapter implements PasswordEncoderPort {

@@ -5,6 +5,10 @@ import com.bautistagaber.connectiontoswapi.domain.model.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Outbound port defining all SWAPI data access operations.
+ * Implemented by SwapiAdapter in the infrastructure layer.
+ */
 public interface SwapiPort {
 
     PageResult<People> findPeople(int page, int size);

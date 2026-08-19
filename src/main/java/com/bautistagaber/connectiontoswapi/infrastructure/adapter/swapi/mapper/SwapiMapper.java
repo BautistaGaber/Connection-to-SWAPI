@@ -15,6 +15,10 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDate;
 
+/**
+ * Mapper that converts SWAPI infrastructure DTOs into domain models
+ * (People, Film, Starship, Vehicle). Handles type conversions such as String uid to Long.
+ */
 @Component
 public class SwapiMapper {
     public People toPeople(SwapiResult<SwapiPeopleProperties> result){

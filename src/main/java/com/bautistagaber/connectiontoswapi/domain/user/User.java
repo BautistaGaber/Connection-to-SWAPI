@@ -2,6 +2,9 @@ package com.bautistagaber.connectiontoswapi.domain.user;
 
 import lombok.*;
 
+/**
+ * Domain model representing an application user.
+ */
 @Getter
 @Setter
 @Builder

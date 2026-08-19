@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Generic paginated response DTO with content, page, size, totalElements, and totalPages.
+ */
 @Getter
 @Builder
 @NoArgsConstructor

@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for films. Exposes GET /api/films (paginated list with optional title filter)
+ * and GET /api/films/{id}. Requires JWT authentication.
+ */
 @RestController
 @RequestMapping("/api/films")
 @Validated

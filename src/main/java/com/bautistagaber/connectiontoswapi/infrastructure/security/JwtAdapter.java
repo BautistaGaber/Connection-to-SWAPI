@@ -11,6 +11,10 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+/**
+ * Adapter implementing JwtPort using the JJWT library.
+ * Generates tokens with 1-hour expiration, extracts usernames, and validates tokens.
+ */
 @Component
 public class JwtAdapter implements JwtPort {
     private final String secretKey;

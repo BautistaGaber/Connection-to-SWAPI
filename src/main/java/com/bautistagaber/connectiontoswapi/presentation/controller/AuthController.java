@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller for authentication. Exposes POST /auth/register and POST /auth/login.
+ * These routes are public (no JWT required).
+ */
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
 

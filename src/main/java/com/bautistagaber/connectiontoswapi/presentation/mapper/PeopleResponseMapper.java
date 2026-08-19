@@ -4,6 +4,9 @@ import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.PeopleResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper that converts the domain People model into the PeopleResponse DTO.
+ */
 @Component
 public class PeopleResponseMapper {
 

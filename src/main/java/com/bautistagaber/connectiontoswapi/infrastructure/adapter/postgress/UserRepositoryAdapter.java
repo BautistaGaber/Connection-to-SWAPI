@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Adapter implementing UserPersistencePort. Maps between the domain User model
+ * and the JPA UserEntity, delegating database operations to UserRepository.
+ */
 @Component
 public class UserRepositoryAdapter implements UserPersistencePort {
     private final UserRepository userRepository;

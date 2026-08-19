@@ -4,6 +4,10 @@ import com.bautistagaber.connectiontoswapi.domain.user.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * JPA entity mapping the 'users' table in PostgreSQL.
+ * Stores id, username, password, and role.
+ */
 @Entity
 @Table(name = "users")
 @Getter

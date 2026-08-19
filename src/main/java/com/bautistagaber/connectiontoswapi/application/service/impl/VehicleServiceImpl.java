@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Implementation of the vehicle service.
+ * Delegates queries to SwapiPort and validates that name searches return results.
+ */
 @Service
 public class VehicleServiceImpl implements VehicleService {
     private final SwapiPort swapiPort;

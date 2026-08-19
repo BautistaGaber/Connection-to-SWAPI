@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Adapter implementing SwapiPort. Converts SWAPI API responses into domain models
+ * and handles client-side pagination for films.
+ */
 @Component
 public class SwapiAdapter implements SwapiPort {
 

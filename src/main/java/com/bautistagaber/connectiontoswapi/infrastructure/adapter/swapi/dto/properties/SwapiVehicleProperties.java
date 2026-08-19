@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * DTO mapping SWAPI vehicle JSON properties from the external API.
+ */
 public record SwapiVehicleProperties(String created,
                                      String edited,
                                      String consumables,

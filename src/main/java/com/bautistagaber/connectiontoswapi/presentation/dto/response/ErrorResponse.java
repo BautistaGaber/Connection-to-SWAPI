@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.time.Instant;
 
+/**
+ * Standard error response DTO with timestamp, status, error, message, and path.
+ */
 @Getter
 @Builder
 @NoArgsConstructor

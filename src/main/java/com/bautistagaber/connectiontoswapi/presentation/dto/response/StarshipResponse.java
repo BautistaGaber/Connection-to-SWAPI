@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * Full starship response DTO with all fields for the REST API.
+ */
 @Getter
 @Builder
 @NoArgsConstructor

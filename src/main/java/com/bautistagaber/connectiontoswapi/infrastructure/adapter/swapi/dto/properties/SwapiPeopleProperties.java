@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * DTO mapping SWAPI people JSON properties from the external API.
+ */
 public record SwapiPeopleProperties(String name,
                                     @JsonProperty("birth_year")
                                     String birthYear,

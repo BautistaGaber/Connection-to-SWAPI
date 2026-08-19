@@ -6,6 +6,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Domain model representing a Star Wars film.
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

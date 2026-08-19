@@ -6,6 +6,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Full film response DTO with all fields for the REST API.
+ */
 @Getter
 @Builder
 @NoArgsConstructor

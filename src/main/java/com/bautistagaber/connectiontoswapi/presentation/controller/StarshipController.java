@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for starships. Exposes GET /api/starships (paginated list with optional name filter)
+ * and GET /api/starships/{id}. Requires JWT authentication.
+ */
 @RestController
 @RequestMapping("/api/starships")
 @Validated
