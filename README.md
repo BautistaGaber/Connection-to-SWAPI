@@ -101,7 +101,13 @@ graph TB
 
 ### Opcion 1: Docker (recomendado)
 
-Levantar la app + PostgreSQL con un solo comando:
+1. Crear el archivo `.env` en la raiz del proyecto:
+
+```bash
+cp .env.example .env
+```
+
+2. Levantar la app + PostgreSQL con un solo comando:
 
 ```bash
 docker compose up --build
@@ -321,18 +327,35 @@ Cobertura de tests:
 
 ### Variables de entorno
 
-| Variable | Descripcion | Default |
-|----------|-------------|---------|
-| `JWT_SECRET_KEY` | Clave secreta para JWT (Base64) | Requerida |
-| `SPRING_DATASOURCE_URL` | URL de PostgreSQL | `jdbc:postgresql://localhost:5432/connection_to_swapi` |
-| `SPRING_DATASOURCE_USERNAME` | Usuario de PostgreSQL | `postgres` |
-| `SPRING_DATASOURCE_PASSWORD` | Password de PostgreSQL | `admin` |
+Las variables de entorno se configuran en un archivo `.env` en la raiz del proyecto. Copia el ejemplo y modificalo:
+
+```bash
+cp .env.example .env
+```
+
+El archivo `.env` debe quedar asi:
+
+```env
+POSTGRES_DB=connection_to_swapi
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=admin
+JWT_SECRET_KEY=tu-clave-secreta-en-base64-aqui
+```
+
+| Variable | Descripcion | Requerida |
+|----------|-------------|-----------|
+| `POSTGRES_DB` | Nombre de la base de datos | Si |
+| `POSTGRES_USER` | Usuario de PostgreSQL | Si |
+| `POSTGRES_PASSWORD` | Password de PostgreSQL | Si |
+| `JWT_SECRET_KEY` | Clave secreta para firmar JWT (Base64) | Si |
+
+> **Importante:** No commitees el archivo `.env` al repositorio. Ya esta incluido en `.gitignore`.
 
 ### application.properties
 
 ```properties
 spring.application.name=Connection-to-SWAPI
-spring.datasource.url=jdbc:postgresql://localhost:5432/connection_to_swapi](postgresql://ep-tiny-thunder-acnjp0ah.sa-east-1.aws.neon.tech/neondb?sslmode=require
+spring.datasource.url=jdbc:postgresql://ep-tiny-thunder-acnjp0ah.sa-east-1.aws.neon.tech/neondb?sslmode=require
 spring.datasource.username=postgres
 spring.datasource.password=admin
 jwt.secret-key=${JWT_SECRET_KEY}

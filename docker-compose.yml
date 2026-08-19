@@ -3,9 +3,9 @@ services:
     image: postgres:16-alpine
     container_name: swapi-postgres
     environment:
-      POSTGRES_DB: connection_to_swapi
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -22,9 +22,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/connection_to_swapi
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     depends_on:
       db:
