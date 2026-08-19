@@ -34,15 +34,15 @@ public class StarshipController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<ListResponse>> findStarship(
-            @RequestParam(defaultValue = "0") @Min(0) int page,
+    public ResponseEntity<PageResponse<ListResponse>> findStarship(@RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String name) {
 
         PageResult<Starship> result = starshipService.findStarship(page, size, name);
+        List<ListResponse> starships = result.content().stream()
+                .map(starship -> ListResponse.builder().id(starship.getId()).name(starship.getName()).url(starship.getUrl()).build()).toList();
 
-        List<ListResponse> starships = result.content().stream().map(starship -> ListResponse.builder().id(starship.getId()).name(starship.getName()).url(starship.getUrl()).build()).toList();
-
-        PageResponse<ListResponse> response = PageResponse.<ListResponse>builder().content(starships).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
+        PageResponse<ListResponse> response = PageResponse.<ListResponse>builder()
+                .content(starships).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
 
         return ResponseEntity.ok(response);
     }

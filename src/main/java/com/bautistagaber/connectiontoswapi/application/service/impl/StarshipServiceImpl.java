@@ -4,9 +4,9 @@ import com.bautistagaber.connectiontoswapi.application.service.StarshipService;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.model.Starship;
 import com.bautistagaber.connectiontoswapi.domain.port.out.SwapiPort;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +24,13 @@ public class StarshipServiceImpl implements StarshipService {
             return swapiPort.findStarships(page, size);
         }
 
-        return swapiPort.findStarshipByName(name, page, size);
+        PageResult<Starship> result = swapiPort.findStarshipByName(name, page, size);
+
+        if (result.content().isEmpty()) {
+            throw new ResourceNotFoundException("Starship", name);
+        }
+
+        return result;
 
     }
 

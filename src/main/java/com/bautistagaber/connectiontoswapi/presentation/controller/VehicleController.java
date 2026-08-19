@@ -38,11 +38,11 @@ public class VehicleController {
             @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String name) {
 
         PageResult<Vehicle> result = vehicleService.findVehicles(page, size, name);
+        List<ListResponse> vehicles = result.content().stream()
+                .map(vehicle -> ListResponse.builder().id(vehicle.getId()).name(vehicle.getName()).url(vehicle.getUrl()).build()).toList();
 
-        List<ListResponse> vehicles = result.content().stream().map(vehicle -> ListResponse.builder().id(vehicle.getId()).name(vehicle.getName()).url(vehicle.getUrl()).build()).toList();
-
-        PageResponse<ListResponse> response = PageResponse.<ListResponse>builder().content(vehicles).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
-
+        PageResponse<ListResponse> response = PageResponse.<ListResponse>builder()
+                .content(vehicles).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
         return ResponseEntity.ok(response);
     }
 

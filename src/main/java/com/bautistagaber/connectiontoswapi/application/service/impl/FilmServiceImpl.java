@@ -4,9 +4,9 @@ import com.bautistagaber.connectiontoswapi.application.service.FilmService;
 import com.bautistagaber.connectiontoswapi.domain.model.Film;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.port.out.SwapiPort;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +25,13 @@ public class FilmServiceImpl implements FilmService {
             return swapiPort.findFilms(page, size);
         }
 
-        return swapiPort.findFilmByName(title, page, size);
+        PageResult<Film> result = swapiPort.findFilmByName(title, page, size);
+
+        if (result.content().isEmpty()) {
+            throw new ResourceNotFoundException("Film", title);
+        }
+
+        return result;
     }
 
     @Override

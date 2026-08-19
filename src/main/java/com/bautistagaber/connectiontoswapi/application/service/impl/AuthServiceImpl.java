@@ -25,15 +25,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User register(RegisterCommand command) {
 
-        Optional<User> existingUser =
-                userPersistencePort.findByUsername(command.username());
+        Optional<User> existingUser = userPersistencePort.findByUsername(command.username());
 
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException("Username already exists");
         }
 
-        String encodedPassword =
-                passwordEncoderPort.encode(command.password());
+        String encodedPassword = passwordEncoderPort.encode(command.password());
 
         User user = User.builder()
                 .username(command.username())
@@ -46,8 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginCommand command) {
-        User user = userPersistencePort.findByUsername(command.username())
-                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
+        User user = userPersistencePort.findByUsername(command.username()).orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
 
         boolean passwordMatches = passwordEncoderPort.matches(command.password(), user.getPassword());
 

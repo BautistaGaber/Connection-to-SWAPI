@@ -33,8 +33,7 @@ public class FilmController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageResponse<FilmResponse>> findFilms(
-            @RequestParam(defaultValue = "0") @Min(0) int page,
+    public ResponseEntity<PageResponse<FilmResponse>> findFilms(@RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size, @RequestParam(required = false) String title) {
 
         PageResult<Film> result = filmService.findFilms(page, size, title);

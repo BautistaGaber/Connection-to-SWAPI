@@ -4,9 +4,9 @@ import com.bautistagaber.connectiontoswapi.application.service.PeopleService;
 import com.bautistagaber.connectiontoswapi.domain.model.PageResult;
 import com.bautistagaber.connectiontoswapi.domain.model.People;
 import com.bautistagaber.connectiontoswapi.domain.port.out.SwapiPort;
+import com.bautistagaber.connectiontoswapi.presentation.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +24,13 @@ public class PeopleServiceImpl implements PeopleService {
             return swapiPort.findPeople(page, size);
         }
 
-        return swapiPort.findPersonByName(name, page, size);
+        PageResult<People> result = swapiPort.findPersonByName(name, page, size);
+
+        if (result.content().isEmpty()) {
+            throw new ResourceNotFoundException("Person", name);
+        }
+
+        return result;
     }
 
     @Override

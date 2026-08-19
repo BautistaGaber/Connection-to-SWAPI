@@ -39,11 +39,8 @@ public class PeopleController {
 
 
         PageResult<People> result = peopleService.findPeople(page, size, name);
-
         List<ListResponse> people = result.content().stream().map(person -> ListResponse.builder().id(person.getId()).name(person.getName()).url(person.getUrl()).build()).toList();
-
         PageResponse<ListResponse> response = PageResponse.<ListResponse>builder().content(people).page(result.page()).size(result.size()).totalElements(result.totalElements()).totalPages(result.totalPages()).build();
-
         return ResponseEntity.ok(response);
     }
 
