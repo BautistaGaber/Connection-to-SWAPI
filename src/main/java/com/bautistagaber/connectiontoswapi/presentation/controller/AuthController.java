@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * These routes are public (no JWT required).
  */
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
 
