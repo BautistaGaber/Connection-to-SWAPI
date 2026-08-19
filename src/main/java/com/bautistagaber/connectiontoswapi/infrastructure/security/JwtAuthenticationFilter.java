@@ -26,31 +26,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserPersistencePort userPersistencePort;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader == null ||
-                !authorizationHeader.startsWith("Bearer ")) {
-
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
         String token = authorizationHeader.substring(7);
-
         try {
-
             String username = jwtPort.extractUsername(token);
-
             Optional<User> userOptional = userPersistencePort.findByUsername(username);
-
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
 
                 if (jwtPort.isTokenValid(token, user)) {
                     UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(user.getUsername(), new SimpleGrantedAuthority("ROLE_" + user.getRole().name()), Collections.emptyList());
-
+                            new UsernamePasswordAuthenticationToken(user.getUsername(),null ,Collections.singletonList(
+                                    new SimpleGrantedAuthority("ROLE_" + user.getRole().name())));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

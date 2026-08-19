@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 public class AuthController {
     private final AuthService authService;
 
@@ -28,21 +28,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
 
-        RegisterCommand command = new RegisterCommand(
-                request.username(),
-                request.password()
-        );
-
+        RegisterCommand command = new RegisterCommand(request.username(), request.password());
         User user = authService.register(command);
-
-        RegisterResponse response = new RegisterResponse(
-                user.getId(),
-                user.getUsername()
-        );
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+        RegisterResponse response = new RegisterResponse(user.getId(), user.getUsername());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     //es keysensitive
@@ -51,11 +40,8 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
 
         LoginCommand command = new LoginCommand(request.username(), request.password());
-
         String token = authService.login(command);
-
         LoginResponse response = new LoginResponse(token);
-
         return ResponseEntity.ok(response);
     }
 }
