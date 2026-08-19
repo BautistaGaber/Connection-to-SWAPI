@@ -1,6 +1,8 @@
 # Connection-to-SWAPI
 
-REST API backend that consumes [SWAPI (Star Wars API)](https://swapi.dev/) and exposes its data through a secured, paginated, and filterable interface. Built with Java 21, Spring Boot 4.0.7, and Hexagonal Architecture.
+Backend de una API REST que consume SWAPI (Star Wars API) y expone sus datos mediante una interfaz segura, paginada y filtrable. Desarrollado con Java 21, Spring Boot 4.0.7 y Arquitectura Hexagonal.
+
+**Produccion:** [https://connection-to-swapi.onrender.com/swagger-ui/index.html](https://connection-to-swapi.onrender.com/swagger-ui/index.html)
 
 ## Arquitectura
 
@@ -330,7 +332,7 @@ Cobertura de tests:
 
 ```properties
 spring.application.name=Connection-to-SWAPI
-spring.datasource.url=jdbc:postgresql://localhost:5432/connection_to_swapi](postgresql://neondb_owner:npg_YpG4RVCBz7DU@ep-tiny-thunder-acnjp0ah.sa-east-1.aws.neon.tech/neondb?sslmode=require
+spring.datasource.url=jdbc:postgresql://localhost:5432/connection_to_swapi](postgresql://ep-tiny-thunder-acnjp0ah.sa-east-1.aws.neon.tech/neondb?sslmode=require
 spring.datasource.username=postgres
 spring.datasource.password=admin
 jwt.secret-key=${JWT_SECRET_KEY}
