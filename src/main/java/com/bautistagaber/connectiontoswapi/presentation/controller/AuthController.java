@@ -8,7 +8,6 @@ import com.bautistagaber.connectiontoswapi.presentation.dto.response.LoginReques
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.LoginResponse;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.RegisterRequest;
 import com.bautistagaber.connectiontoswapi.presentation.dto.response.RegisterResponse;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * These routes are public (no JWT required).
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 public class AuthController {
     private final AuthService authService;
 
@@ -37,8 +36,6 @@ public class AuthController {
         RegisterResponse response = new RegisterResponse(user.getId(), user.getUsername());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-    //es keysensitive
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){

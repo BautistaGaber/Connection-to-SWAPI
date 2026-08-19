@@ -5,7 +5,6 @@ import com.bautistagaber.connectiontoswapi.domain.port.out.SwapiPort;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.client.SwapiClient;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResultResponse;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiListResultsResponse;
-import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.SwapiResult;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.list.SwapiListItem;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiFilmProperties;
 import com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.properties.SwapiPeopleProperties;

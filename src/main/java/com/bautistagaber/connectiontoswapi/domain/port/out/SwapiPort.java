@@ -2,7 +2,6 @@ package com.bautistagaber.connectiontoswapi.domain.port.out;
 
 import com.bautistagaber.connectiontoswapi.domain.model.*;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
