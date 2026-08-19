@@ -33,21 +33,14 @@ public class SwapiAdapter implements SwapiPort {
 
         int swapiPage = page + 1;
 
-        SwapiListResultsResponse<SwapiListItem> response =
-                swapiClient.getPeople(swapiPage, size);
+        SwapiListResultsResponse<SwapiListItem> response = swapiClient.getPeople(swapiPage, size);
 
         List<People> people = response.results()
                 .stream()
                 .map(swapiMapper::toPeopleList)
                 .toList();
 
-        return new PageResult<>(
-                people,
-                page,
-                size,
-                response.totalRecords(),
-                response.totalPages()
-        );
+        return new PageResult<>(people, page, size, response.totalRecords(), response.totalPages());
     }
 
     @Override
@@ -59,29 +52,20 @@ public class SwapiAdapter implements SwapiPort {
     @Override
     public PageResult<People> findPersonByName(String name, int page, int size) {
 
-        SwapiListResultResponse<SwapiPeopleProperties> response =
-                swapiClient.getPersonByName(name);
-
+        SwapiListResultResponse<SwapiPeopleProperties> response = swapiClient.getPersonByName(name);
         List<People> people = response.result()
                 .stream()
                 .map(swapiMapper::toPeople)
                 .toList();
 
-        return new PageResult<>(
-                people,
-                page,
-                size,
-                people.size(),
-                1
-        );
+        return new PageResult<>(people, page, size, people.size(), 1);
     }
 
     @Override
     public PageResult<Film> findFilms(int page, int size) {
         int swapiPage = page + 1;
 
-        SwapiListResultResponse<SwapiFilmProperties> response =
-                swapiClient.getFilms(swapiPage, size);
+        SwapiListResultResponse<SwapiFilmProperties> response = swapiClient.getFilms(swapiPage, size);
 
         List<Film> films = response.result()
                 .stream()
@@ -98,17 +82,9 @@ public class SwapiAdapter implements SwapiPort {
                 ? films.subList(fromIndex, toIndex)
                 : List.of();
 
-        int totalPages = (int) Math.ceil(
-                (double) totalElements / size
-        );
+        int totalPages = (int) Math.ceil((double) totalElements / size);
 
-        return new PageResult<>(
-                paginatedFilms,
-                page,
-                size,
-                totalElements,
-                totalPages
-        );
+        return new PageResult<>(paginatedFilms, page, size, totalElements, totalPages);
     }
 
     @Override
@@ -119,21 +95,14 @@ public class SwapiAdapter implements SwapiPort {
 
     @Override
     public PageResult<Film> findFilmByName(String name, int page, int size) {
-        SwapiListResultResponse<SwapiFilmProperties> response =
-                swapiClient.getFilmsByName(name);
+        SwapiListResultResponse<SwapiFilmProperties> response = swapiClient.getFilmsByName(name);
 
         List<Film> films = response.result()
                 .stream()
                 .map(swapiMapper::toFilm)
                 .toList();
 
-        return new PageResult<>(
-                films,
-                page,
-                size,
-                films.size(),
-                1
-        );
+        return new PageResult<>(films, page, size, films.size(), 1);
     }
 
     @Override
@@ -141,21 +110,14 @@ public class SwapiAdapter implements SwapiPort {
 
         int swapiPage = page + 1;
 
-        SwapiListResultsResponse<SwapiListItem> response =
-                swapiClient.getStarships(swapiPage, size);
+        SwapiListResultsResponse<SwapiListItem> response = swapiClient.getStarships(swapiPage, size);
 
         List<Starship> Starship = response.results()
                 .stream()
                 .map(swapiMapper::toStarshipList)
                 .toList();
 
-        return new PageResult<>(
-                Starship,
-                page,
-                size,
-                response.totalRecords(),
-                response.totalPages()
-        );
+        return new PageResult<>(Starship, page, size, response.totalRecords(), response.totalPages());
     }
 
     @Override
@@ -166,21 +128,14 @@ public class SwapiAdapter implements SwapiPort {
 
     @Override
     public PageResult<Starship> findStarshipByName(String name, int page, int size) {
-        SwapiListResultResponse<SwapiStarshipProperties> response =
-                swapiClient.getStarshipsByName(name);
+        SwapiListResultResponse<SwapiStarshipProperties> response = swapiClient.getStarshipsByName(name);
 
         List<Starship> Starships = response.result()
                 .stream()
                 .map(swapiMapper::toStarship)
                 .toList();
 
-        return new PageResult<>(
-                Starships,
-                page,
-                size,
-                Starships.size(),
-                1
-        );
+        return new PageResult<>(Starships, page, size, Starships.size(), 1);
     }
 
     @Override
@@ -188,21 +143,14 @@ public class SwapiAdapter implements SwapiPort {
 
         int swapiPage = page + 1;
 
-        SwapiListResultsResponse<SwapiListItem> response =
-                swapiClient.getVehicles(swapiPage, size);
+        SwapiListResultsResponse<SwapiListItem> response = swapiClient.getVehicles(swapiPage, size);
 
         List<Vehicle> vehicle = response.results()
                 .stream()
                 .map(swapiMapper::toVehiclesList)
                 .toList();
 
-        return new PageResult<>(
-                vehicle,
-                page,
-                size,
-                response.totalRecords(),
-                response.totalPages()
-        );
+        return new PageResult<>(vehicle, page, size, response.totalRecords(), response.totalPages());
     }
 
     @Override
@@ -213,21 +161,14 @@ public class SwapiAdapter implements SwapiPort {
 
     @Override
     public PageResult<Vehicle> findVehicleByName(String name, int page, int size) {
-        SwapiListResultResponse<SwapiVehicleProperties> response =
-                swapiClient.getVehicleByName(name);
+        SwapiListResultResponse<SwapiVehicleProperties> response = swapiClient.getVehicleByName(name);
 
         List<Vehicle> vehicle = response.result()
                 .stream()
                 .map(swapiMapper::toVehicle)
                 .toList();
 
-        return new PageResult<>(
-                vehicle,
-                page,
-                size,
-                vehicle.size(),
-                1
-        );
+        return new PageResult<>(vehicle, page, size, vehicle.size(), 1);
     }
 
 

@@ -2,7 +2,4 @@ package com.bautistagaber.connectiontoswapi.infrastructure.adapter.swapi.dto.lis
 
 
 //se necesita para listar todos los "people, starships y vehicles"
-public record SwapiListItem(String uid,
-                            String name,
-                            String url) {
-}
+public record SwapiListItem(String uid, String name, String url) { }

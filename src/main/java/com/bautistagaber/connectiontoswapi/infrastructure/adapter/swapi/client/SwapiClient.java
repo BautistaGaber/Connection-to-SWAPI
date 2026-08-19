@@ -29,14 +29,9 @@ public class SwapiClient {
                         .path("/people/")
                         .queryParam("page", page)
                         .queryParam("limit", limit)
-                        .build()
-                )
+                        .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultsResponse<SwapiListItem>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultsResponse<SwapiListItem>>() {})
                 .block(), "people");
     }
 
@@ -53,14 +48,9 @@ public class SwapiClient {
                 .uri(uriBuilder -> uriBuilder
                         .path("/people/")
                         .queryParam("name", name)
-                        .build()
-                )
+                        .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultResponse<SwapiPeopleProperties>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultResponse<SwapiPeopleProperties>>() {})
                 .block(), "people by name");
     }
 
@@ -70,14 +60,9 @@ public class SwapiClient {
                         .path("/films/")
                         .queryParam("page", page)
                         .queryParam("limit", limit)
-                        .build()
-                )
+                        .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultResponse<SwapiFilmProperties>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultResponse<SwapiFilmProperties>>() {})
                 .block(), "films");
     }
 
@@ -96,11 +81,7 @@ public class SwapiClient {
                         .queryParam("title", name)
                         .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultResponse<SwapiFilmProperties>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultResponse<SwapiFilmProperties>>() {})
                 .block(), "films by name");
     }
 
@@ -113,11 +94,7 @@ public class SwapiClient {
                         .build()
                 )
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultsResponse<SwapiListItem>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultsResponse<SwapiListItem>>() {})
                 .block(), "starships");
     }
 
@@ -136,10 +113,7 @@ public class SwapiClient {
                         .queryParam("name", name)
                         .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultResponse<SwapiStarshipProperties>>() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultResponse<SwapiStarshipProperties>>() {})
                 .block(), "starships by name");
     }
 
@@ -149,14 +123,9 @@ public class SwapiClient {
                         .path("/vehicles/")
                         .queryParam("page", page)
                         .queryParam("limit", limit)
-                        .build()
-                )
+                        .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultsResponse<SwapiListItem>
-                                >() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultsResponse<SwapiListItem>>() {})
                 .block(), "vehicles");
     }
 
@@ -175,10 +144,7 @@ public class SwapiClient {
                         .queryParam("name", name)
                         .build())
                 .retrieve()
-                .bodyToMono(
-                        new ParameterizedTypeReference<
-                                SwapiListResultResponse<SwapiVehicleProperties>>() {}
-                )
+                .bodyToMono(new ParameterizedTypeReference<SwapiListResultResponse<SwapiVehicleProperties>>() {})
                 .block(), "vehicles by name");
     }
 

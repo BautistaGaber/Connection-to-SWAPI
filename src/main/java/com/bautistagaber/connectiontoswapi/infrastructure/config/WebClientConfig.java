@@ -10,7 +10,6 @@ public class WebClientConfig {
 
     @Bean
     public WebClient swapiWebClient() {
-        return WebClient.builder()
-                .baseUrl(SWAPI_BASE_URL)
-                .build();
-    }}
+        return WebClient.builder().baseUrl(SWAPI_BASE_URL).build();
+    }
+}
